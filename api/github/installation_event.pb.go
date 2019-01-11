@@ -6,6 +6,7 @@ package github_pb // import "github.com/izumin5210/ghrsync/api/github"
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
+import empty "github.com/golang/protobuf/ptypes/empty"
 import _ "google.golang.org/genproto/googleapis/api/annotations"
 
 import (
@@ -24,18 +25,58 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type InstallationEvent struct {
-	InstallationEventId  string   `protobuf:"bytes,1,opt,name=installation_event_id,json=installationEventId,proto3" json:"installation_event_id,omitempty"`
+type Installation struct {
+	Id                   uint32   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Installation) Reset()         { *m = Installation{} }
+func (m *Installation) String() string { return proto.CompactTextString(m) }
+func (*Installation) ProtoMessage()    {}
+func (*Installation) Descriptor() ([]byte, []int) {
+	return fileDescriptor_installation_event_3d701448f387c4fc, []int{0}
+}
+func (m *Installation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Installation.Unmarshal(m, b)
+}
+func (m *Installation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Installation.Marshal(b, m, deterministic)
+}
+func (dst *Installation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Installation.Merge(dst, src)
+}
+func (m *Installation) XXX_Size() int {
+	return xxx_messageInfo_Installation.Size(m)
+}
+func (m *Installation) XXX_DiscardUnknown() {
+	xxx_messageInfo_Installation.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Installation proto.InternalMessageInfo
+
+func (m *Installation) GetId() uint32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type InstallationEvent struct {
+	Action               string                          `protobuf:"bytes,1,opt,name=action,proto3" json:"action,omitempty"`
+	Installation         *Installation                   `protobuf:"bytes,2,opt,name=installation,proto3" json:"installation,omitempty"`
+	Repositories         []*InstallationEvent_Repository `protobuf:"bytes,3,rep,name=repositories,proto3" json:"repositories,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                        `json:"-"`
+	XXX_unrecognized     []byte                          `json:"-"`
+	XXX_sizecache        int32                           `json:"-"`
 }
 
 func (m *InstallationEvent) Reset()         { *m = InstallationEvent{} }
 func (m *InstallationEvent) String() string { return proto.CompactTextString(m) }
 func (*InstallationEvent) ProtoMessage()    {}
 func (*InstallationEvent) Descriptor() ([]byte, []int) {
-	return fileDescriptor_installation_event_e5d80bc794d41c1f, []int{0}
+	return fileDescriptor_installation_event_3d701448f387c4fc, []int{1}
 }
 func (m *InstallationEvent) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_InstallationEvent.Unmarshal(m, b)
@@ -55,9 +96,61 @@ func (m *InstallationEvent) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_InstallationEvent proto.InternalMessageInfo
 
-func (m *InstallationEvent) GetInstallationEventId() string {
+func (m *InstallationEvent) GetAction() string {
 	if m != nil {
-		return m.InstallationEventId
+		return m.Action
+	}
+	return ""
+}
+
+func (m *InstallationEvent) GetInstallation() *Installation {
+	if m != nil {
+		return m.Installation
+	}
+	return nil
+}
+
+func (m *InstallationEvent) GetRepositories() []*InstallationEvent_Repository {
+	if m != nil {
+		return m.Repositories
+	}
+	return nil
+}
+
+type InstallationEvent_Repository struct {
+	FullName             string   `protobuf:"bytes,1,opt,name=full_name,json=fullName,proto3" json:"full_name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InstallationEvent_Repository) Reset()         { *m = InstallationEvent_Repository{} }
+func (m *InstallationEvent_Repository) String() string { return proto.CompactTextString(m) }
+func (*InstallationEvent_Repository) ProtoMessage()    {}
+func (*InstallationEvent_Repository) Descriptor() ([]byte, []int) {
+	return fileDescriptor_installation_event_3d701448f387c4fc, []int{1, 0}
+}
+func (m *InstallationEvent_Repository) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InstallationEvent_Repository.Unmarshal(m, b)
+}
+func (m *InstallationEvent_Repository) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InstallationEvent_Repository.Marshal(b, m, deterministic)
+}
+func (dst *InstallationEvent_Repository) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InstallationEvent_Repository.Merge(dst, src)
+}
+func (m *InstallationEvent_Repository) XXX_Size() int {
+	return xxx_messageInfo_InstallationEvent_Repository.Size(m)
+}
+func (m *InstallationEvent_Repository) XXX_DiscardUnknown() {
+	xxx_messageInfo_InstallationEvent_Repository.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InstallationEvent_Repository proto.InternalMessageInfo
+
+func (m *InstallationEvent_Repository) GetFullName() string {
+	if m != nil {
+		return m.FullName
 	}
 	return ""
 }
@@ -73,7 +166,7 @@ func (m *CreateInstallationEventRequest) Reset()         { *m = CreateInstallati
 func (m *CreateInstallationEventRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateInstallationEventRequest) ProtoMessage()    {}
 func (*CreateInstallationEventRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_installation_event_e5d80bc794d41c1f, []int{1}
+	return fileDescriptor_installation_event_3d701448f387c4fc, []int{2}
 }
 func (m *CreateInstallationEventRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateInstallationEventRequest.Unmarshal(m, b)
@@ -101,7 +194,9 @@ func (m *CreateInstallationEventRequest) GetInstallationEvent() *InstallationEve
 }
 
 func init() {
+	proto.RegisterType((*Installation)(nil), "izumin5210.ghrsync.github.Installation")
 	proto.RegisterType((*InstallationEvent)(nil), "izumin5210.ghrsync.github.InstallationEvent")
+	proto.RegisterType((*InstallationEvent_Repository)(nil), "izumin5210.ghrsync.github.InstallationEvent.Repository")
 	proto.RegisterType((*CreateInstallationEventRequest)(nil), "izumin5210.ghrsync.github.CreateInstallationEventRequest")
 }
 
@@ -117,7 +212,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type InstallationEventServiceClient interface {
-	CreateInstallationEvent(ctx context.Context, in *CreateInstallationEventRequest, opts ...grpc.CallOption) (*InstallationEvent, error)
+	CreateInstallationEvent(ctx context.Context, in *CreateInstallationEventRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type installationEventServiceClient struct {
@@ -128,8 +223,8 @@ func NewInstallationEventServiceClient(cc *grpc.ClientConn) InstallationEventSer
 	return &installationEventServiceClient{cc}
 }
 
-func (c *installationEventServiceClient) CreateInstallationEvent(ctx context.Context, in *CreateInstallationEventRequest, opts ...grpc.CallOption) (*InstallationEvent, error) {
-	out := new(InstallationEvent)
+func (c *installationEventServiceClient) CreateInstallationEvent(ctx context.Context, in *CreateInstallationEventRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/izumin5210.ghrsync.github.InstallationEventService/CreateInstallationEvent", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -139,7 +234,7 @@ func (c *installationEventServiceClient) CreateInstallationEvent(ctx context.Con
 
 // InstallationEventServiceServer is the server API for InstallationEventService service.
 type InstallationEventServiceServer interface {
-	CreateInstallationEvent(context.Context, *CreateInstallationEventRequest) (*InstallationEvent, error)
+	CreateInstallationEvent(context.Context, *CreateInstallationEventRequest) (*empty.Empty, error)
 }
 
 func RegisterInstallationEventServiceServer(s *grpc.Server, srv InstallationEventServiceServer) {
@@ -178,25 +273,33 @@ var _InstallationEventService_serviceDesc = grpc.ServiceDesc{
 }
 
 func init() {
-	proto.RegisterFile("installation_event.proto", fileDescriptor_installation_event_e5d80bc794d41c1f)
+	proto.RegisterFile("installation_event.proto", fileDescriptor_installation_event_3d701448f387c4fc)
 }
 
-var fileDescriptor_installation_event_e5d80bc794d41c1f = []byte{
-	// 255 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0xc8, 0xcc, 0x2b, 0x2e,
-	0x49, 0xcc, 0xc9, 0x49, 0x2c, 0xc9, 0xcc, 0xcf, 0x8b, 0x4f, 0x2d, 0x4b, 0xcd, 0x2b, 0xd1, 0x2b,
-	0x28, 0xca, 0x2f, 0xc9, 0x17, 0x92, 0xcc, 0xac, 0x2a, 0xcd, 0xcd, 0xcc, 0x33, 0x35, 0x32, 0x34,
-	0xd0, 0x4b, 0xcf, 0x28, 0x2a, 0xae, 0xcc, 0x4b, 0xd6, 0x4b, 0xcf, 0x2c, 0xc9, 0x28, 0x4d, 0x92,
-	0x92, 0x49, 0xcf, 0xcf, 0x4f, 0xcf, 0x49, 0xd5, 0x4f, 0x2c, 0xc8, 0xd4, 0x4f, 0xcc, 0xcb, 0xcb,
-	0x2f, 0x01, 0xeb, 0x2e, 0x86, 0x68, 0x54, 0x72, 0xe7, 0x12, 0xf4, 0x44, 0x32, 0xd4, 0x15, 0x64,
-	0xa6, 0x90, 0x11, 0x97, 0x28, 0xa6, 0x4d, 0xf1, 0x99, 0x29, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x9c,
-	0x41, 0xc2, 0x99, 0xe8, 0x3a, 0x3c, 0x53, 0x94, 0x6a, 0xb9, 0xe4, 0x9c, 0x8b, 0x52, 0x13, 0x4b,
-	0x52, 0x31, 0x8c, 0x0b, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0x8a, 0xe6, 0x12, 0xc2, 0x34,
-	0x15, 0x6c, 0x24, 0xb7, 0x91, 0x8e, 0x1e, 0x4e, 0x0f, 0xe8, 0x61, 0x1a, 0x28, 0x88, 0xe1, 0x00,
-	0xa3, 0x8b, 0x8c, 0x5c, 0x12, 0x18, 0x0a, 0x83, 0x53, 0x8b, 0xca, 0x32, 0x93, 0x53, 0x85, 0xb6,
-	0x30, 0x72, 0x89, 0xe3, 0x70, 0x9c, 0x90, 0x25, 0x1e, 0x9b, 0xf1, 0x7b, 0x48, 0x8a, 0x24, 0x47,
-	0x2b, 0x19, 0x34, 0x5d, 0x7e, 0x32, 0x99, 0x49, 0x4b, 0x49, 0x44, 0x1f, 0x33, 0x14, 0x8a, 0xad,
-	0xb0, 0x04, 0x8d, 0x93, 0x49, 0x94, 0x11, 0xd4, 0xb4, 0xe4, 0xfc, 0x5c, 0x7d, 0x84, 0x5d, 0xfa,
-	0x50, 0xbb, 0xc0, 0x51, 0x0a, 0x51, 0x61, 0x0d, 0xa1, 0xe2, 0x0b, 0x92, 0x92, 0xd8, 0xc0, 0x11,
-	0x6b, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x93, 0xac, 0x9e, 0x37, 0x2d, 0x02, 0x00, 0x00,
+var fileDescriptor_installation_event_3d701448f387c4fc = []byte{
+	// 383 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x92, 0xcf, 0x4a, 0xeb, 0x40,
+	0x14, 0xc6, 0x49, 0x0a, 0xe5, 0x76, 0xda, 0x7b, 0xa1, 0xb3, 0xe8, 0x8d, 0xa9, 0x94, 0x92, 0x8d,
+	0x15, 0x64, 0x62, 0xa3, 0x52, 0xd4, 0x9d, 0xd2, 0x85, 0x08, 0x2e, 0xe2, 0xce, 0x2e, 0xca, 0x24,
+	0x9d, 0xa6, 0x03, 0xc9, 0x4c, 0x4c, 0x26, 0x85, 0x0a, 0x82, 0xf8, 0x0a, 0x3e, 0x83, 0x2f, 0xe2,
+	0x2b, 0xf8, 0x0a, 0x3e, 0x88, 0x64, 0x92, 0xd2, 0xd4, 0xd8, 0xa2, 0xab, 0x70, 0xfe, 0x7d, 0xe7,
+	0x77, 0x32, 0x1f, 0xd0, 0x28, 0x8b, 0x05, 0xf6, 0x7d, 0x2c, 0x28, 0x67, 0x63, 0x32, 0x27, 0x4c,
+	0xa0, 0x30, 0xe2, 0x82, 0xc3, 0x1d, 0xfa, 0x90, 0x04, 0x94, 0x9d, 0x58, 0xfd, 0x43, 0xe4, 0xcd,
+	0xa2, 0x78, 0xc1, 0x5c, 0xe4, 0x51, 0x31, 0x4b, 0x1c, 0x7d, 0xd7, 0xe3, 0xdc, 0xf3, 0x89, 0x89,
+	0x43, 0x6a, 0x62, 0xc6, 0xb8, 0x90, 0xd3, 0x71, 0x36, 0xa8, 0xb7, 0xf3, 0xaa, 0x8c, 0x9c, 0x64,
+	0x6a, 0x92, 0x20, 0x14, 0x8b, 0xac, 0x68, 0x74, 0x40, 0xe3, 0xaa, 0xb0, 0x11, 0xfe, 0x03, 0x2a,
+	0x9d, 0x68, 0x4a, 0x57, 0xe9, 0xfd, 0xb5, 0x55, 0x3a, 0x31, 0x9e, 0x54, 0xd0, 0x2c, 0x36, 0x0c,
+	0x53, 0x22, 0xd8, 0x02, 0x55, 0xec, 0xa6, 0xa1, 0xec, 0xac, 0xd9, 0x79, 0x04, 0xaf, 0x41, 0xa3,
+	0xc8, 0xaf, 0xa9, 0x5d, 0xa5, 0x57, 0xb7, 0xf6, 0xd0, 0x46, 0x74, 0x54, 0xd4, 0xb6, 0xd7, 0x86,
+	0xe1, 0x08, 0x34, 0x22, 0x12, 0xf2, 0x98, 0x0a, 0x1e, 0x51, 0x12, 0x6b, 0x95, 0x6e, 0xa5, 0x57,
+	0xb7, 0x06, 0x3f, 0x14, 0x93, 0xa0, 0xc8, 0x5e, 0x0a, 0x2c, 0xec, 0x35, 0x31, 0x7d, 0x1f, 0x80,
+	0x55, 0x0d, 0xb6, 0x41, 0x6d, 0x9a, 0xf8, 0xfe, 0x98, 0xe1, 0x80, 0xe4, 0x27, 0xfd, 0x49, 0x13,
+	0x37, 0x38, 0x20, 0xc6, 0x23, 0xe8, 0x5c, 0x46, 0x04, 0x0b, 0x52, 0x92, 0xb7, 0xc9, 0x7d, 0x42,
+	0x62, 0x01, 0x47, 0x00, 0x96, 0x9f, 0x4d, 0xea, 0xd4, 0xad, 0x83, 0xdf, 0xf0, 0xda, 0x4d, 0xfa,
+	0x35, 0x65, 0xbd, 0x29, 0x40, 0x2b, 0x35, 0xde, 0x92, 0x68, 0x4e, 0x5d, 0x02, 0x5f, 0x15, 0xf0,
+	0x7f, 0x03, 0x1c, 0x3c, 0xdd, 0xb2, 0x79, 0xfb, 0x41, 0x7a, 0x0b, 0x65, 0x9e, 0x41, 0x4b, 0xcf,
+	0xa0, 0x61, 0xea, 0x19, 0x63, 0xf0, 0xfc, 0xfe, 0xf1, 0xa2, 0xf6, 0x8d, 0xb6, 0x99, 0xe9, 0x98,
+	0xe5, 0xb3, 0xe3, 0xb3, 0x6f, 0xfe, 0xc5, 0xc5, 0xf1, 0x9d, 0x95, 0x6f, 0x76, 0x79, 0x60, 0xae,
+	0xb8, 0xcc, 0x9c, 0x4b, 0x5a, 0x37, 0xeb, 0x38, 0xcf, 0x3e, 0xe3, 0xd0, 0x71, 0xaa, 0x72, 0xfd,
+	0xd1, 0x67, 0x00, 0x00, 0x00, 0xff, 0xff, 0x90, 0xa0, 0x8a, 0x6a, 0x15, 0x03, 0x00, 0x00,
 }

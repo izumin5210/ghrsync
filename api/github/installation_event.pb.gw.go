@@ -107,7 +107,7 @@ func RegisterInstallationEventServiceHandlerClient(ctx context.Context, mux *run
 }
 
 var (
-	pattern_InstallationEventService_CreateInstallationEvent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"installation_events"}, ""))
+	pattern_InstallationEventService_CreateInstallationEvent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"github", "installation_events"}, ""))
 )
 
 var (
