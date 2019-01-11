@@ -26,6 +26,5 @@ type installationEventServiceServerImpl struct {
 }
 
 func (s *installationEventServiceServerImpl) CreateInstallationEvent(ctx context.Context, req *github_pb.CreateInstallationEventRequest) (*empty.Empty, error) {
-	// TODO: Not yet implemented.
 	return nil, status.Error(codes.Unimplemented, "TODO: You should implement it!")
 }
