@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package izumin5210.ghrsync.github;
+
+option go_package = "github.com/izumin5210/ghrsync/api/github;github_pb";
+
+
+import "google/api/annotations.proto";
+
+service InstallationEventService {
+  rpc CreateInstallationEvent (CreateInstallationEventRequest) returns (InstallationEvent) {
+    option (google.api.http) = {
+      post: "/installation_events"
+      body: "installation_event"
+    };
+  }
+}
+
+message InstallationEvent {
+  string installation_event_id = 1;
+}
+
+message CreateInstallationEventRequest {
+  InstallationEvent installation_event = 1;
+}
