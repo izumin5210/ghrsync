@@ -9,3 +9,7 @@
 [[constraint]]
   name = "github.com/izumin5210/grapi"
   version = "0.3.2"
+
+[[constraint]]
+  name = "github.com/golangci/golangci-lint"
+  version = "1.12.5"

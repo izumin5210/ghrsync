@@ -1,0 +1,25 @@
+language: go
+go:       "1.11"
+
+env:
+  global:
+  - DEP_RELEASE_TAG=v0.5.0
+
+  # REVIEWDOG_GITHUB_API_TOKEN
+  - secure: "LuKXi3QKVxIgTBiEo0uFzLTgbod7j03TrQjf1HU68uimggfAwsHC5zOVT01zwWaDN0PVMsl1yX3ZDumnzKNWzOGTH24AU89ZjEcTYlVWWkElqYcWwU3WvqOSDp/jcYjeQL8kdniPChMvdmztBeUdOVAv4z4qraBaDPO9jZo8117OLzyAOkLNmerqYsNmpK5L63uVEQ567HGdApT1oc0+gjuPy6Nrms0zI/LudQKh4E+cR9tZuxUl0Tza9HuUzOD4o6u9wziuX/y6Mjrgt6V2iUy3I2jJRURRkqp8/HKqgOss5NzIUo6ixN8A0/+RD+GzaE51Ir1yg5/ReZKfrEIZbBFByggFx5Mn8LEjCylsn2kWUbvDbWgWPh4cpWsaKNfQYwVTB2mZkQxZWQVsr0/YC3CTsmWfKvtr6F5Bv8JcQ2JU1riBPwk+fQICs0b9HgFvY7udryOCVkosXJlM4E47zc8mFcsWVyLNWw5xFf00QMp/OuBRMtlTCwiOygR0yc593rOOKA65ovoTXHaqaEN66XpaggiKKZmvKLC4+zkW3HlwRds7Q/bcOzzoaNmx3vBqeV8G6mJRFSALmfPq7T+3LfUbO2ka3qyJsbeabrzrzFF1WFT1cOtNfeLktfZPuBAzAmh/alFlT3ozBd/ZKhF80yoM2MKkjW8GLS9q7mMP4aA="
+
+cache:
+  directories:
+  - $GOPATH/pkg/dep
+
+jobs:
+  include:
+  - name: 'lint'
+    install: make setup
+    script: make lint
+    if: type = 'pull_request'
+
+  - name: 'test'
+    install: make setup
+    script: make test
+    if: type != 'pull_request'
