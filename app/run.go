@@ -9,6 +9,7 @@ import (
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/izumin5210/grapi/pkg/grapiserver"
+	"github.com/srvc/fail"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
@@ -17,10 +18,11 @@ import (
 
 // Run starts the grapiserver.
 func Run() error {
-	err := setup()
+	closeLogger, err := setupLogger()
 	if err != nil {
-		return err
+		return fail.Wrap(err)
 	}
+	defer closeLogger()
 
 	s := grapiserver.New(
 		grapiserver.WithGrpcServerUnaryInterceptors(
@@ -41,7 +43,7 @@ func Run() error {
 	return s.Serve()
 }
 
-func setup() error {
+func setupLogger() (func(), error) {
 	var (
 		cfg  zap.Config
 		opts []zap.Option
@@ -65,13 +67,20 @@ func setup() error {
 	l, err := cfg.Build(opts...)
 
 	if err != nil {
-		return err
+		return nil, fail.Wrap(err)
 	}
 
-	_ = zap.ReplaceGlobals(l)
+	var closers []func()
+	closers = append(closers, func() { l.Sync() })
+	closers = append(closers, zap.ReplaceGlobals(l))
+
 	grpc_zap.ReplaceGrpcLogger(l)
 
-	return nil
+	return func() {
+		for _, f := range closers {
+			f()
+		}
+	}, nil
 }
 
 func githubEventDispatcher(next http.Handler) http.Handler {
