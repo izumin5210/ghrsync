@@ -3,9 +3,8 @@ package main
 import (
 	"os"
 
-	"google.golang.org/grpc/grpclog"
-
 	"github.com/izumin5210/ghrsync/app"
+	"go.uber.org/zap"
 )
 
 func main() {
@@ -15,7 +14,7 @@ func main() {
 func run() int {
 	err := app.Run()
 	if err != nil {
-		grpclog.Errorf("server was shutdown with errors: %v", err)
+		zap.L().Error("server was shutdown with errors", zap.Error(err))
 		return 1
 	}
 	return 0
