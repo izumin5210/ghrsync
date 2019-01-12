@@ -107,7 +107,7 @@ func RegisterPullRequestEventServiceHandlerClient(ctx context.Context, mux *runt
 }
 
 var (
-	pattern_PullRequestEventService_CreatePullRequestEvent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"pull_request_events"}, ""))
+	pattern_PullRequestEventService_CreatePullRequestEvent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"github", "pull_request_events"}, ""))
 )
 
 var (

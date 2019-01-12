@@ -3,6 +3,7 @@ package github
 import (
 	"context"
 
+	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/izumin5210/grapi/pkg/grapiserver"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -24,7 +25,7 @@ func NewPullRequestEventServiceServer() PullRequestEventServiceServer {
 type pullRequestEventServiceServerImpl struct {
 }
 
-func (s *pullRequestEventServiceServerImpl) CreatePullRequestEvent(ctx context.Context, req *github_pb.CreatePullRequestEventRequest) (*github_pb.PullRequestEvent, error) {
+func (s *pullRequestEventServiceServerImpl) CreatePullRequestEvent(ctx context.Context, req *github_pb.CreatePullRequestEventRequest) (*empty.Empty, error) {
 	// TODO: Not yet implemented.
 	return nil, status.Error(codes.Unimplemented, "TODO: You should implement it!")
 }
