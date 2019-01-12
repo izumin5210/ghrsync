@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  digest = "1:e4b30804a381d7603b8a344009987c1ba351c26043501b23b8c7ce21f0b67474"
+  name = "github.com/BurntSushi/toml"
+  packages = ["."]
+  pruneopts = ""
+  revision = "3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005"
+  version = "v0.3.1"
+
+[[projects]]
   branch = "master"
   digest = "1:bf241ce6eec44d9ebca17e22af43f13c25f55267b308ce8b29b9820c0d6d1d25"
   name = "github.com/OpenPeeDeeP/depguard"
@@ -165,6 +173,7 @@
     "ptypes",
     "ptypes/any",
     "ptypes/duration",
+    "ptypes/empty",
     "ptypes/struct",
     "ptypes/timestamp",
     "ptypes/wrappers",
@@ -436,7 +445,14 @@
 [[projects]]
   digest = "1:9a0b2dd1f882668a3d7fbcd424eed269c383a16f1faa3a03d14e0dd5fba571b1"
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
-  packages = ["."]
+  packages = [
+    ".",
+    "logging",
+    "logging/zap",
+    "logging/zap/ctxzap",
+    "tags",
+    "tags/zap",
+  ]
   pruneopts = ""
   revision = "c250d6563d4d4c20252cd865923440e829844f4e"
   version = "v1.0.0"
@@ -589,6 +605,17 @@
   packages = ["."]
   pruneopts = ""
   revision = "04140366298a54a039076d798123ffa108fff46c"
+
+[[projects]]
+  digest = "1:e6b65ec5a09e42738d13762852d50a13865d9fccfd29576926e8ef05469388d9"
+  name = "github.com/kisielk/errcheck"
+  packages = [
+    ".",
+    "internal/errcheck",
+  ]
+  pruneopts = ""
+  revision = "e14f8d59a22d460d56c5ee92507cd94c78fbf274"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:765270f95ea68ad2150f6143eb8b9c0c17b038a7e2255b46580674471af00e27"
@@ -783,6 +810,14 @@
   version = "v1.3.1"
 
 [[projects]]
+  digest = "1:b921bd462b09b68f6effde51e2bee0ec5376e4c7759a20cdacb19a10156e0f69"
+  name = "github.com/srvc/fail"
+  packages = ["."]
+  pruneopts = ""
+  revision = "9851d3097a9222786b7f6cad98c838e28e76b26d"
+  version = "v3.1.0"
+
+[[projects]]
   digest = "1:59f47ee1fbb31dc3d4df3fdc000fa4e4d001752dacddbba8169c149763e4ef2e"
   name = "github.com/srvc/wraperr"
   packages = [
@@ -937,12 +972,17 @@
   packages = [
     "go/ast/astutil",
     "go/buildutil",
+    "go/callgraph",
+    "go/callgraph/cha",
+    "go/callgraph/rta",
     "go/gcexportdata",
     "go/internal/cgo",
     "go/internal/gcimporter",
     "go/internal/packagesdriver",
     "go/loader",
     "go/packages",
+    "go/ssa",
+    "go/ssa/ssautil",
     "go/types/typeutil",
     "imports",
     "internal/fastwalk",
@@ -1030,12 +1070,52 @@
   version = "v2.2.2"
 
 [[projects]]
+  digest = "1:c88e3258b6ae1a1a7351f4a7e83d67482f35448e4b9a01ea4618865ed5206c50"
+  name = "honnef.co/go/tools"
+  packages = [
+    "arg",
+    "callgraph",
+    "callgraph/static",
+    "cmd/megacheck",
+    "config",
+    "deprecated",
+    "functions",
+    "internal/sharedcheck",
+    "lint",
+    "lint/lintdsl",
+    "lint/lintutil",
+    "lint/lintutil/format",
+    "simple",
+    "ssa",
+    "ssa/ssautil",
+    "ssautil",
+    "staticcheck",
+    "staticcheck/vrp",
+    "unused",
+    "version",
+  ]
+  pruneopts = ""
+  revision = "c2f93a96b099cbbec1de36336ab049ffa620e6d7"
+  version = "2019.1"
+
+[[projects]]
   branch = "master"
   digest = "1:8b4b9c29be72c176988b04d5acc665c093b1efac228835f0a4716531c1f7563e"
   name = "k8s.io/utils"
   packages = ["exec"]
   pruneopts = ""
   revision = "8a16e7dd8fb6d97d1331b0c79a16722f934b00b1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:42ea531bd0ffee70aeb1c46ce951ed4c18ba7bfb541773b378b66efbc9c52964"
+  name = "mvdan.cc/unparam"
+  packages = [
+    ".",
+    "check",
+  ]
+  pruneopts = ""
+  revision = "68701730a1d7cb7ec4085dda7cb976d03f6d1ebf"
 
 [[projects]]
   digest = "1:0778809e0f18d0c0c05105a5c1e583d2253c5fd66fbd2b79b00e5f6439402491"
@@ -1057,10 +1137,16 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/golang/protobuf/proto",
     "github.com/golang/protobuf/protoc-gen-go",
+    "github.com/golang/protobuf/ptypes/empty",
     "github.com/golangci/golangci-lint/cmd/golangci-lint",
+    "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap",
+    "github.com/grpc-ecosystem/go-grpc-middleware/tags",
     "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway",
     "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger",
+    "github.com/grpc-ecosystem/grpc-gateway/runtime",
+    "github.com/grpc-ecosystem/grpc-gateway/utilities",
     "github.com/haya14busa/reviewdog/cmd/reviewdog",
     "github.com/izumin5210/grapi/cmd/grapi",
     "github.com/izumin5210/grapi/cmd/grapi-gen-command",
@@ -1068,8 +1154,16 @@
     "github.com/izumin5210/grapi/cmd/grapi-gen-service",
     "github.com/izumin5210/grapi/cmd/grapi-gen-type",
     "github.com/izumin5210/grapi/pkg/grapiserver",
+    "github.com/srvc/fail",
     "github.com/srvc/wraperr/cmd/wraperr",
+    "go.uber.org/zap",
+    "go.uber.org/zap/zapcore",
+    "golang.org/x/net/context",
+    "google.golang.org/genproto/googleapis/api/annotations",
+    "google.golang.org/grpc",
+    "google.golang.org/grpc/codes",
     "google.golang.org/grpc/grpclog",
+    "google.golang.org/grpc/status",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
