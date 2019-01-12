@@ -1,0 +1,81 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "installation_event.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/github/installation_events": {
+      "post": {
+        "operationId": "CreateInstallationEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/githubInstallationEvent"
+            }
+          }
+        ],
+        "tags": [
+          "InstallationEventService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "InstallationEventRepository": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string"
+        }
+      }
+    },
+    "githubInstallation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "githubInstallationEvent": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "installation": {
+          "$ref": "#/definitions/githubInstallation"
+        },
+        "repositories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InstallationEventRepository"
+          }
+        }
+      }
+    }
+  }
+}
