@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package izumin5210.ghrsync.github;
+
+option go_package = "github.com/izumin5210/ghrsync/api/github;github_pb";
+
+
+import "google/api/annotations.proto";
+
+service PullRequestEventService {
+  rpc CreatePullRequestEvent (CreatePullRequestEventRequest) returns (PullRequestEvent) {
+    option (google.api.http) = {
+      post: "/pull_request_events"
+      body: "pull_request_event"
+    };
+  }
+}
+
+message PullRequestEvent {
+  string pull_request_event_id = 1;
+}
+
+message CreatePullRequestEventRequest {
+  PullRequestEvent pull_request_event = 1;
+}

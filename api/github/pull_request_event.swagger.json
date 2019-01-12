@@ -1,0 +1,55 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pull_request_event.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/pull_request_events": {
+      "post": {
+        "operationId": "CreatePullRequestEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/githubPullRequestEvent"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/githubPullRequestEvent"
+            }
+          }
+        ],
+        "tags": [
+          "PullRequestEventService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "githubPullRequestEvent": {
+      "type": "object",
+      "properties": {
+        "pull_request_event_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
