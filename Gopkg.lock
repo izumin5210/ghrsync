@@ -810,6 +810,14 @@
   version = "v1.3.1"
 
 [[projects]]
+  digest = "1:b921bd462b09b68f6effde51e2bee0ec5376e4c7759a20cdacb19a10156e0f69"
+  name = "github.com/srvc/fail"
+  packages = ["."]
+  pruneopts = ""
+  revision = "9851d3097a9222786b7f6cad98c838e28e76b26d"
+  version = "v3.1.0"
+
+[[projects]]
   digest = "1:59f47ee1fbb31dc3d4df3fdc000fa4e4d001752dacddbba8169c149763e4ef2e"
   name = "github.com/srvc/wraperr"
   packages = [
@@ -1134,6 +1142,7 @@
     "github.com/golang/protobuf/ptypes/empty",
     "github.com/golangci/golangci-lint/cmd/golangci-lint",
     "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap",
+    "github.com/grpc-ecosystem/go-grpc-middleware/tags",
     "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway",
     "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger",
     "github.com/grpc-ecosystem/grpc-gateway/runtime",
@@ -1145,8 +1154,10 @@
     "github.com/izumin5210/grapi/cmd/grapi-gen-service",
     "github.com/izumin5210/grapi/cmd/grapi-gen-type",
     "github.com/izumin5210/grapi/pkg/grapiserver",
+    "github.com/srvc/fail",
     "github.com/srvc/wraperr/cmd/wraperr",
     "go.uber.org/zap",
+    "go.uber.org/zap/zapcore",
     "golang.org/x/net/context",
     "google.golang.org/genproto/googleapis/api/annotations",
     "google.golang.org/grpc",
