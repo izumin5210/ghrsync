@@ -5,10 +5,9 @@ import (
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/izumin5210/grapi/pkg/grapiserver"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
 	github_pb "github.com/izumin5210/ghrsync/api/github"
+	"github.com/izumin5210/ghrsync/domain"
 )
 
 // PullRequestEventServiceServer is a composite interface of github_pb.PullRequestEventServiceServer and grapiserver.Server.
@@ -26,6 +25,20 @@ type pullRequestEventServiceServerImpl struct {
 }
 
 func (s *pullRequestEventServiceServerImpl) CreatePullRequestEvent(ctx context.Context, req *github_pb.CreatePullRequestEventRequest) (*empty.Empty, error) {
-	// TODO: Not yet implemented.
-	return nil, status.Error(codes.Unimplemented, "TODO: You should implement it!")
+	ev := req.GetPullRequestEvent()
+	_ = &domain.Installation{
+		ID:   ev.GetInstallation().GetId(),
+		Slug: domain.RepositorySlug(ev.GetRepository().GetFullName()),
+	}
+	switch ev.GetAction() {
+	case "opened":
+		// TODO
+	case "synchronized":
+		// TODO
+	case "closed":
+		if ev.GetPullRequest().GetMerged() {
+			// TODO
+		}
+	}
+	return new(empty.Empty), nil
 }
